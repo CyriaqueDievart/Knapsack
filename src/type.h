@@ -1,6 +1,8 @@
 /*
-  HUGUES Pierre - THOMAS Roxanne
-  M1 TNSI - Groupe apprentis
+  HUGUES Pierre
+  DIEVART Cyriaque
+  CROCHON Cécile
+  M2 TNSI FA
 */
 
 // Structure de données représentant le problème du sac à dos

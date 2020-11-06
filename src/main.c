@@ -1,8 +1,10 @@
 #include "sacados.c"
 
 /*
-  HUGUES Pierre - THOMAS Roxanne
-  M1 TNSI - Groupe apprentis
+  HUGUES Pierre
+  DIEVART Cyriaque
+  CROCHON Cécile
+  M2 TNSI FA
 */
 
 int main() 
