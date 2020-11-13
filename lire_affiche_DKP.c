@@ -1,12 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "type.h"
 
-/* structure pour représenter un objet */
-typedef struct {
-	int p[3];		/* p[0] = p_{3i}, p[1] = p_{3i+1} and p[2] = p_{3i+2} */
-	int w[3];		/* w[0] = w_{3i}, w[1] = w_{3i+1} and w[2] = w_{3i+2} */
-} Item;
 
 int n;				/* nombre de groupes */
 long int b;			/* capacité du sac */
