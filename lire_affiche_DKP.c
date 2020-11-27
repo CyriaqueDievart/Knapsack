@@ -82,7 +82,7 @@ void sauvegarde_donnees(char *name)
 
 int main()
 {
-    charge_donnees("data/idkp1_1.txt");
+    charge_donnees("data/idkp2_1.txt");
     sauvegarde_donnees("verif.txt");
 	meta(tab, n, b);
     free(tab);

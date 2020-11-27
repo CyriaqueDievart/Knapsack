@@ -10,21 +10,27 @@
 int meta(Item *tab, int n, long int b) {
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
+  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   initialisation(tab, n, b, objSelect);
   long int initOpt = calculOpt(tab, n, objSelect);
   printf("initOpt : %ld \n", initOpt);
+  printf("Poids max : %d\n", b);
+  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
 
   razObjSelect(objSelect, n);
+  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   selectBestInGroup(tab, n, b, objSelect);
   long int bestInGroupOpt = calculOpt(tab, n, objSelect);
   printf("bestInGroupOpt : %ld \n", bestInGroupOpt);
+  printf("Poids max : %d\n", b);
+  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   
   return 0;
 }
 
 /* Remise à zéro des objets sélectionnés */
 void razObjSelect(int *objSelect, int n) {
-  for(int i = 0; i < n; i++) {
+  for(int i = 0; i < (n*3); i++) {
     objSelect[i] = 0;
   }
  } 
@@ -77,4 +83,16 @@ int bestOne(Item item) {
    res = 2;
  }
  return res;
+}
+
+int calculpoids(Item *tab, int n, int *objSelect) {
+  int weight = 0;
+  for(int i = 0; i < (n * 3); i++) {
+    if(objSelect[i] == 1) {
+      int itemIndex = i % 3;
+      int groupIndex = (i - itemIndex) / 3;
+      weight += tab[groupIndex].w[itemIndex];
+    }
+  }
+  return weight;
 }
