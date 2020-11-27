@@ -1,4 +1,4 @@
-#include "type.h"
+#include "knapsack.h"
 
 /*
   HUGUES Pierre
@@ -7,17 +7,17 @@
   M2 TNSI FA
 */
 
-int meta(Item *tab, int n, long int b){
-  int objSelect[n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
+int meta(Item *tab, int n, long int b) {
+  int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
   initialisation(tab, n, b, objSelect);
-  int initOpt = calculOpt(tab, n, objSelect);
-  printf("initOpt : %d \n", initOpt);
+  long int initOpt = calculOpt(tab, n, objSelect);
+  printf("initOpt : %ld \n", initOpt);
 
   razObjSelect(objSelect, n);
   selectBestInGroup(tab, n, b, objSelect);
-  int bestInGroupOpt = calculOpt(tab, n, objSelect);
-  printf("bestInGroupOpt : %d \n", bestInGroupOpt);
+  long int bestInGroupOpt = calculOpt(tab, n, objSelect);
+  printf("bestInGroupOpt : %ld \n", bestInGroupOpt);
   
   return 0;
 }
@@ -44,9 +44,11 @@ void initialisation(Item *tab, int n, long int b, int *objSelect) {
 
 long int calculOpt(Item *tab, int n, int *objSelect) {
   long int opt = 0;
-  for(int i = 0; i < n; i++) {
+  for(int i = 0; i < (n * 3); i++) {
     if(objSelect[i] == 1) {
-      opt = opt + tab[i].p;
+      int groupIndex = i % 3;
+      int itemIndex = i - (groupIndex * 3);
+      opt += tab[groupIndex].p[itemIndex];
     }
   }
   return opt;
