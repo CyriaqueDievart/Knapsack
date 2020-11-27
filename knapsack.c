@@ -11,10 +11,15 @@ int meta(Item *tab, int n, long int b){
   int objSelect[n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
   initialisation(tab, n, b, objSelect);
-  int currentOpt = calculOpt(tab, n, objSelect);
+  int initOpt = calculOpt(tab, n, objSelect);
+  printf("initOpt : %d \n", initOpt);
 
-
-
+  razObjSelect(objSelect, n);
+  selectBestInGroup(tab, n, b, objSelect);
+  int bestInGroupOpt = calculOpt(tab, n, objSelect);
+  printf("bestInGroupOpt : %d \n", bestInGroupOpt);
+  
+  return 0;
 }
 
 /* Remise à zéro des objets sélectionnés */
@@ -28,15 +33,17 @@ void initialisation(Item *tab, int n, long int b, int *objSelect) {
   long int currentCapacity = 0;
   if(b > 0) {
     for(int i = 0; i < n; i++){
-      if((currentCapacity + tab[i].w) <= b) {
-        objSelect[i] = 1;
+      if((currentCapacity + tab[i].w[0]) <= b) {
+        currentCapacity += tab[i].w[0];
+        int index = i * 3;
+        objSelect[index] = 1;
       }
     }
   }
 }
 
-int calculOpt(Item *tab, int n, int *objSelect) {
-  int opt = 0;
+long int calculOpt(Item *tab, int n, int *objSelect) {
+  long int opt = 0;
   for(int i = 0; i < n; i++) {
     if(objSelect[i] == 1) {
       opt = opt + tab[i].p;
@@ -46,9 +53,15 @@ int calculOpt(Item *tab, int n, int *objSelect) {
 }
 
 void selectBestInGroup(Item *tab, int n, long int b, int *objSelect) {
-  for(int i = 0; i < n; i++) {
-    
-  }
+  long int currentCapacity =  0;
+    for(int i = 0; i < n; i++) {
+      int best = bestOne(tab[i]);
+      if ((currentCapacity + tab[i].w[best]) <= b) {
+        currentCapacity += tab[i].w[best];
+        int index = best + (i * 3);
+        objSelect[index] = 1;
+      }
+    }
 }
 
 int bestOne(Item item) {

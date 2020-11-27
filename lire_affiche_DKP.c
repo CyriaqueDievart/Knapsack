@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "type.h"
-
+#include "knapsack.c"
 
 int n;				/* nombre de groupes */
 long int b;			/* capacité du sac */
@@ -84,6 +84,7 @@ int main()
 {
     charge_donnees("data/idkp1_1.txt");
     sauvegarde_donnees("verif.txt");
+	meta(tab, n, b);
     free(tab);
 
     /* charge_donnees("idkp2_1.txt");
