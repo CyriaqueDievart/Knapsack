@@ -130,10 +130,22 @@ void selectRandom(Item *tab, int n, long int b, int *objSelect) {
 
 /* Ordonne les en fonction du meilleur rapport poid prix de chaque groupe d'objet */
 void orderBetter(Item *tab, int n, int *better) {
+  selectBetter(tab, n, better);
+  // triSelection(better, n);
+  // triBulle(better, n);
+  // triPermutation(better,n);
+}
+
+/* Sélectionne les meilleurs objets de chaque groupe */
+void selectBetter(Item *tab, int n, int *better) {
   for(int i = 0; i < n; i++) {
     int best = bestOne(tab[i]); //On sélectionne le meilleur objet parmis chaque groupe
     better[i] = (i * 3) + best; // Si le meilleur objet du groupe n°1 est le 2eme alors son index est (1 * 3) + 2 = 5
   }
+}
+
+/* Tri par sélection */
+void triSelection(int *better, int n) {
   for(int i = 0; i < n - 1; i++){
     for(int j = i + 1; j < n; j++) {
       if(rapportPrixPoids(tab, i) < rapportPrixPoids(tab, j)) {
@@ -142,6 +154,29 @@ void orderBetter(Item *tab, int n, int *better) {
         better[j] = c;
       }
     } 
+  }
+}
+
+/* Tri à bulle */
+void triBulle(int *better, int n) {
+  for(int j = 1;  j <= n; j++) {
+    for(int i = 0; i< n - 1; i++) {
+      if(rapportPrixPoids(tab, i) < rapportPrixPoids(tab, i+1)) {
+        int c = better[i];
+        better[i] = better[i+1];
+        better[i+1] = c;
+      }
+    }
+  }
+}
+
+/* Tri par permutation */
+void triPermutation(int *better, int n) {
+  for(int i = 1; i < n; i++) {
+    if(rapportPrixPoids(tab, i) > rapportPrixPoids(tab, i-1)) {
+      int j = n;
+      while(rapportPrixPoids(tab, j) > rapportPrixPoids(tab, i)) j--;
+    }
   }
 }
 
