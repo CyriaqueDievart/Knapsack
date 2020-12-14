@@ -35,6 +35,7 @@ void razObjSelect(int *objSelect, int n) {
   }
  } 
 
+/* Sélectionne les 1ers objets d'un groupe tant qu'on ne dépasse pas le poids du sac */
 void initialisation(Item *tab, int n, long int b, int *objSelect) {
   long int currentCapacity = 0;
   if(b > 0) {
@@ -48,6 +49,7 @@ void initialisation(Item *tab, int n, long int b, int *objSelect) {
   }
 }
 
+/* Calcule la valeur du sac en fonction des objets sélectionnés */
 long int calculOpt(Item *tab, int n, int *objSelect) {
   long int opt = 0;
   for(int i = 0; i < (n * 3); i++) {
@@ -60,6 +62,7 @@ long int calculOpt(Item *tab, int n, int *objSelect) {
   return opt;
 }
 
+/* Sélectionne les objets dont le rapport qualité prix est le plus élevé dans un groupe d'objets sans dépasser la capacité du sac */
 void selectBestInGroup(Item *tab, int n, long int b, int *objSelect) {
   long int currentCapacity =  0;
     for(int i = 0; i < n; i++) {
@@ -72,6 +75,7 @@ void selectBestInGroup(Item *tab, int n, long int b, int *objSelect) {
     }
 }
 
+/* Retourne l'indice de l'objet qui a le meilleur rapport qualité prix dans le groupe de 3 objets */
 int bestOne(Item item) {
   int res = -1;
  if((item.p[0] / item.w[0]) > (item.p[1] / item.w[1])) {
@@ -85,6 +89,7 @@ int bestOne(Item item) {
  return res;
 }
 
+/* Calcule le poids d'un sac en fonction des objets qu'on a sélectionné */
 int calculpoids(Item *tab, int n, int *objSelect) {
   int weight = 0;
   for(int i = 0; i < (n * 3); i++) {
