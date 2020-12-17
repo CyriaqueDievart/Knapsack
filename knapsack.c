@@ -51,16 +51,18 @@ void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
   for(int i = 0; i < n; i++){
     groupSelected[i] = 0;
   }
-  while(currentWeight < b) {
+  if(b > 0) {
+    while(currentWeight < b) {
     int rdGroup = rand() % n;
     int rdItem = rand() % 3;
     if(groupSelected[rdGroup] == 0) {
       if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
-        Msolution[index][rdGroup + rdItem] = 1;
+        Msolution[index][(rdGroup*3) + rdItem] = 1;
         groupSelected[rdGroup] = 1;
         currentWeight += getPoids(tab, (rdGroup * 3 + rdItem));
       }
     }
+  }
   }
 }
 
