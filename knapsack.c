@@ -38,22 +38,37 @@ int meta(Item *tab, int n, long int b) {
 }
 
 void razMsolution (int **Msolution, int n) {
-  for(int i = 0, i < n; i++) {
+  for(int i = 0; i < n; i++) {
     for(int j = 0; j < n*3; j++) {
       Msolution[i][j] = 0;
     }
   }
 }
 
-void selectRandomInGroup(Item *tab, int n, int **Msolution, int index) {
+void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
   int currentWeight = 0;
+  int groupSelected[n];
+  for(int i = 0; i < n; i++){
+    groupSelected[i] = 0;
+  }
   while(currentWeight < b) {
     int rdGroup = rand() % n;
     int rdItem = rand() % 3;
-    if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
-      Msolution[index][rdGroup + rdItem] = 1;
-      currentWeight += getPoids(tab, (rdGroup * 3 + rdItem));
+    if(groupSelected[rdGroup] == 0) {
+      if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
+        Msolution[index][rdGroup + rdItem] = 1;
+        groupSelected[rdGroup] = 1;
+        currentWeight += getPoids(tab, (rdGroup * 3 + rdItem));
+      }
     }
+  }
+}
+
+
+
+void fillMatrix(Item *tab, int n, long int b, int *objSelect, int ** Msolution ) {
+  for (int i = 0; i < n; i++){
+    selectRandomInGroup(tab, n, b, Msolution, i);
   }
 }
 
