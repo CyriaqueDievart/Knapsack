@@ -16,7 +16,7 @@ int meta(Item *tab, int n, long int b) {
   initialisation(tab, n, b, objSelect);
   long int initOpt = calculOpt(tab, n, objSelect);
   printf("initOpt : %ld \n", initOpt);
-  printf("Poids max : %d\n", b);
+  printf("Poids max : %ld\n", b);
   printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
 
   razObjSelect(objSelect, n);
@@ -24,7 +24,7 @@ int meta(Item *tab, int n, long int b) {
   selectBestInGroup(tab, n, b, objSelect);
   long int bestInGroupOpt = calculOpt(tab, n, objSelect);
   printf("bestInGroupOpt : %ld \n", bestInGroupOpt);
-  printf("Poids max : %d\n", b);
+  printf("Poids max : %ld\n", b);
   printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   
   int better[n];
@@ -202,7 +202,7 @@ int reste (int dividende, int diviseur) {
 }
 
 /* Retourne le poids d'un objet*/
-int getPoids(Item *tab, int index){
+int getPoids(Item *tab, int index) {
   int indexObj = reste(index, 3);
   int indexTab = quotient(index, 3);
   return tab[indexTab].w[indexObj];
