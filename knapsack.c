@@ -10,6 +10,7 @@
 
 int meta(Item *tab, int n, long int b) {
   clock_t begin = clock();
+  int Msolution[n][3*n];
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
   printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
@@ -34,6 +35,26 @@ int meta(Item *tab, int n, long int b) {
   double time_spend = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("%f", time_spend);
   return 0;
+}
+
+void razMsolution (int **Msolution, int n) {
+  for(int i = 0, i < n; i++) {
+    for(int j = 0; j < n*3; j++) {
+      Msolution[i][j] = 0;
+    }
+  }
+}
+
+void selectRandomInGroup(Item *tab, int n, int **Msolution, int index) {
+  int currentWeight = 0;
+  while(currentWeight < b) {
+    int rdGroup = rand() % n;
+    int rdItem = rand() % 3;
+    if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
+      Msolution[index][rdGroup + rdItem] = 1;
+      currentWeight += getPoids(tab, (rdGroup * 3 + rdItem));
+    }
+  }
 }
 
 /* Remise à zéro des objets sélectionnés */
