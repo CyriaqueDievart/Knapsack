@@ -1,4 +1,5 @@
 #include "knapsack.h"
+#include "time.h"
 
 /*
   HUGUES Pierre
@@ -8,6 +9,7 @@
 */
 
 int meta(Item *tab, int n, long int b) {
+  clock_t begin = clock();
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
   printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
@@ -28,7 +30,9 @@ int meta(Item *tab, int n, long int b) {
   int better[n];
   razObjSelect(objSelect, n);
   greedy(tab,n,b,objSelect,better);
-
+  clock_t end = clock();
+  double time_spend = (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("%f", time_spend);
   return 0;
 }
 
