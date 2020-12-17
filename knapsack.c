@@ -149,7 +149,7 @@ void selectBetter(Item *tab, int n, int *better) {
 }
 
 /* Tri par sélection */
-void triSelection(int *better, int n) {
+void triSelection(Item *tab, int *better, int n) {
   for(int i = 0; i < n - 1; i++){
     for(int j = i + 1; j < n; j++) {
       if(rapportPrixPoids(tab, i) < rapportPrixPoids(tab, j)) {
@@ -162,7 +162,7 @@ void triSelection(int *better, int n) {
 }
 
 /* Tri à bulle */
-void triBulle(int *better, int n) {
+void triBulle(Item *tab, int *better, int n) {
   for(int j = 1;  j <= n; j++) {
     for(int i = 0; i< n - 1; i++) {
       if(rapportPrixPoids(tab, i) < rapportPrixPoids(tab, i+1)) {
@@ -175,7 +175,7 @@ void triBulle(int *better, int n) {
 }
 
 /* Tri par permutation */
-void triPermutation(int *better, int n) {
+void triPermutation(Item *tab, int *better, int n) {
   for(int i = 1; i < n; i++) {
     if(rapportPrixPoids(tab, i) > rapportPrixPoids(tab, i-1)) {
       int j = n;
@@ -186,7 +186,8 @@ void triPermutation(int *better, int n) {
 
 /* Retourne le rapport prix-poids d'un objet */
 float rapportPrixPoids(Item *tab, int index) {
-  return (getPoids(tab,index) / getPrix(tab,index));
+  float res = ((float)getPoids(tab,index)) / ((float)getPrix(tab,index));
+  return res;
 }
 
 /* Retourne le quotient d'une division euclidenne */
