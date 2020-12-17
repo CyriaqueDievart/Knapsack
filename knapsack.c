@@ -128,7 +128,7 @@ void selectRandom(Item *tab, int n, long int b, int *objSelect) {
   }
 }
 
-/* Ordonne les en fonction du meilleur rapport poid prix de chaque groupe d'objet */
+/* Ordonne les objets en fonction du meilleur rapport poids prix de chaque groupe d'objet */
 void orderBetter(Item *tab, int n, int *better) {
   selectBetter(tab, n, better);
   // triSelection(better, n);
