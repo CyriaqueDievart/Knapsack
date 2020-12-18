@@ -13,9 +13,9 @@ int meta(Item *tab, int n, long int b) {
   int** Msolution = NULL;
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
-  initMatrix(Msolution, n);
-  razMsolution(&Msolution, n);
-  printMatrix(&Msolution, n, n*3);
+  Msolution = initMatrix(n);
+  razMsolution(Msolution, n);
+  printMatrix(Msolution, n, n*3);
   // selectRandomInGroup(tab, n, b, Msolution,0);
   /*printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   initialisation(tab, n, b, objSelect);
@@ -73,6 +73,27 @@ void printMatrix(int **m, int x, int y) {
   } 
 }
 
+int try (int* groupSelected, int index) {
+  for (int i = index - 1 ; i >= 0; i--) {
+    if (groupSelected[i] == 0) {
+      return i;
+    }
+    if(i == 0) {
+      return -1;
+    }
+  }
+}
+
+int howMany(int* groupSelected, int n) {
+  int counter = 0
+  for (int i = 0; i < n; i++) {
+    if(groupSelected[i] == 1) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
 void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
   int currentWeight = 0;
   int groupSelected[n];
@@ -80,10 +101,10 @@ void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
     groupSelected[i] = 0;
   }
   if(b > 0) {
-    while(currentWeight < b) {
+    while((currentWeight < b) && (howMany(groupSelected,n) <= n)) {
     int rdGroup = rand() % n;
     int rdItem = rand() % 3;
-    if(groupSelected[rdGroup] == 0) {
+    if(try(groupSelected,rdGroup) >= 0) {
       if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
         Msolution[index][(rdGroup*3) + rdItem] = 1;
         groupSelected[rdGroup] = 1;
