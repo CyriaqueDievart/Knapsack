@@ -82,10 +82,19 @@ void sauvegarde_donnees(char *name)
 
 int main()
 {
-    charge_donnees("data/idkp2_1.txt");
-    sauvegarde_donnees("verif.txt");
-	meta(tab, n, b);
-    free(tab);
+	char name[18];
+	for(int i = 1 ; i <= 2 ; i++) {
+		for(int j = 1 ; j <= 10 ; j++) {
+			snprintf(name, 18, "data/wdkp%d_%d.txt", i, j);
+			printf("%s\n", name);
+			printf("----------------------------------------------------------\n");
+			charge_donnees(name);
+			sauvegarde_donnees("verif.txt");
+			meta(tab, n, b);
+			free(tab);
+			printf("----------------------------------------------------------\n");
+		}
+	}
 
     /* charge_donnees("idkp2_1.txt");
     sauvegarde_donnees("verif2.txt");

@@ -12,12 +12,12 @@ int meta(Item *tab, int n, long int b) {
   clock_t begin = clock();
   int** Msolution = NULL;
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
-  razObjSelect(objSelect, n);
+  /*razObjSelect(objSelect, n);
   Msolution = initMatrix(n);
   razMsolution(Msolution, n);
   printMatrix(Msolution, n, n*3);
-  // selectRandomInGroup(tab, n, b, Msolution,0);
-  /*printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
+  //selectRandomInGroup(tab, n, b, Msolution,0);*/
+  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   initialisation(tab, n, b, objSelect);
   long int initOpt = calculOpt(tab, n, objSelect);
   printf("initOpt : %ld \n", initOpt);
@@ -34,7 +34,7 @@ int meta(Item *tab, int n, long int b) {
   
   int better[n];
   razObjSelect(objSelect, n);
-  greedy(tab,n,b,objSelect,better); */
+  greedy(tab,n,b,objSelect,better);
   clock_t end = clock();
   double time_spend = (double)(end - begin) / CLOCKS_PER_SEC;
   printf("Time spend : %f\n", time_spend);
@@ -85,7 +85,7 @@ int try (int* groupSelected, int index) {
 }
 
 int howMany(int* groupSelected, int n) {
-  int counter = 0
+  int counter = 0;
   for (int i = 0; i < n; i++) {
     if(groupSelected[i] == 1) {
       counter++;
@@ -101,9 +101,11 @@ void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
     groupSelected[i] = 0;
   }
   if(b > 0) {
-    while((currentWeight < b) && (howMany(groupSelected,n) <= n)) {
+    while((currentWeight < b) && (howMany(groupSelected,n) < n)) {
+      printf("%d\n", howMany(groupSelected, n));
     int rdGroup = rand() % n;
     int rdItem = rand() % 3;
+    printf("%d\n", rdGroup);
     if(try(groupSelected,rdGroup) >= 0) {
       if((currentWeight + getPoids(tab, (rdGroup * 3 + rdItem))) <= b) {
         Msolution[index][(rdGroup*3) + rdItem] = 1;
@@ -222,9 +224,9 @@ void selectRandom(Item *tab, int n, long int b, int *objSelect) {
 /* Ordonne les objets en fonction du meilleur rapport poids prix de chaque groupe d'objet */
 void orderBetter(Item *tab, int n, int *better) {
   selectBetter(tab, n, better);
-  // triSelection(better, n);
-  // triBulle(better, n);
-  // triPermutation(better,n);
+  triSelection(tab, better, n);
+  //triBulle(tab, better, n);
+  //triPermutation(tab, better,n);
 }
 
 /* Sélectionne les meilleurs objets de chaque groupe */

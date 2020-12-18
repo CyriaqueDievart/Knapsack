@@ -18,3 +18,6 @@ int reste (int dividende, int diviseur);
 int getPoids(Item *tab, int index);
 int getPrix(Item *tab, int index);
 void greedy(Item *tab, int n, long int b, int *objSelect, int *better);
+int** initMatrix(int n);
+void razMsolution (int **Msolution, int n);
+void printMatrix(int **m, int x, int y);
