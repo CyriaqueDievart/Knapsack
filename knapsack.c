@@ -13,7 +13,10 @@ int meta(Item *tab, int n, long int b) {
   int Msolution[n][3*n];
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
-  printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
+  razMsolution(Msolution, n);
+  printMatrix(Msolution, n, n*3);
+  selectRandomInGroup(tab, n, b, Msolution,0);
+  /*printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   initialisation(tab, n, b, objSelect);
   long int initOpt = calculOpt(tab, n, objSelect);
   printf("initOpt : %ld \n", initOpt);
@@ -30,19 +33,29 @@ int meta(Item *tab, int n, long int b) {
   
   int better[n];
   razObjSelect(objSelect, n);
-  greedy(tab,n,b,objSelect,better);
+  greedy(tab,n,b,objSelect,better); */
   clock_t end = clock();
   double time_spend = (double)(end - begin) / CLOCKS_PER_SEC;
-  printf("%f", time_spend);
+  printf("Time spend : %f\n", time_spend);
   return 0;
 }
 
-void razMsolution (int **Msolution, int n) {
+void razMsolution (int** Msolution, int n) {
   for(int i = 0; i < n; i++) {
-    for(int j = 0; j < n*3; j++) {
+    for(int j = 0; j < (n*3); j++) {
       Msolution[i][j] = 0;
     }
   }
+}
+
+void printMatrix(int ** m, int x, int y) {
+  for(int i = 0; i < x; i++){
+    printf("[");
+    for(int j = 0; j < y; j++) {
+      printf("%d ", m[i][j] );
+    }
+    printf("]\n");
+  } 
 }
 
 void selectRandomInGroup(Item *tab, int n, int b, int **Msolution, int index) {
