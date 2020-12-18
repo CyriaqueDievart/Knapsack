@@ -10,12 +10,13 @@
 
 int meta(Item *tab, int n, long int b) {
   clock_t begin = clock();
-  int Msolution[n][3*n];
+  int** Msolution = NULL;
   int objSelect[3*n]; // Tableau d'entier : 0 si item n°i non sélectionné 1 sinon
   razObjSelect(objSelect, n);
-  razMsolution(Msolution, n);
-  printMatrix(Msolution, n, n*3);
-  selectRandomInGroup(tab, n, b, Msolution,0);
+  initMatrix(Msolution, n);
+  razMsolution(&Msolution, n);
+  printMatrix(&Msolution, n, n*3);
+  // selectRandomInGroup(tab, n, b, Msolution,0);
   /*printf("Poids sac : %d\n", calculpoids(tab, n, objSelect));
   initialisation(tab, n, b, objSelect);
   long int initOpt = calculOpt(tab, n, objSelect);
@@ -40,15 +41,29 @@ int meta(Item *tab, int n, long int b) {
   return 0;
 }
 
-void razMsolution (int** Msolution, int n) {
-  for(int i = 0; i < n; i++) {
+int** initMatrix(int n) {
+  int tripleN = 3 * n;
+  int** Msolution = malloc( n * sizeof(int*));
+  for (int x = 0; x < n; x++) {
+    Msolution[x] = malloc(tripleN * sizeof(int));
+  }
+  for (int i = 0; i < n; i++) {
+    for(int j = 0; j < tripleN; j++) {
+      Msolution[i][j] = 0;
+    }
+  }
+  return Msolution;
+}
+
+void razMsolution (int **Msolution, int n) {
+  for(int i = 1; i < n; i++) {
     for(int j = 0; j < (n*3); j++) {
       Msolution[i][j] = 0;
     }
   }
 }
 
-void printMatrix(int ** m, int x, int y) {
+void printMatrix(int **m, int x, int y) {
   for(int i = 0; i < x; i++){
     printf("[");
     for(int j = 0; j < y; j++) {
